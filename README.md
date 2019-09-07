@@ -19,7 +19,7 @@ apply u2 with binders
 
 `Binding(q string, binders map[string]string) string`
 
-example:
+example: [on playground](https://play.golang.org/p/J4OE_PnYlli)
 
 ```go
 q := "hi __@name__, how are you today. i am __:me__, nice to meet you"
