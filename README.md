@@ -13,10 +13,13 @@ import "github.com/luthfikw/u2"
 
 ## usage
 
-`ScanPrefix(q string, prefixs []string) (items map[string][]string)`
-
+### ScanPrefix
 get all u2 binding with a prefix
 
+`ScanPrefix(q string, prefixs []string) (items map[string][]string)`
+
+
+example:
 ```go
 q := `
     hi __@name__, how are you today
@@ -29,9 +32,13 @@ fmt.Printf("%+v\n", items)
 // output
 ```
 
-`ScanTags(q string, tag string) (nq string, tags []TagInfo, err error)`
+### ScanTags
 
 get all u2tag binding
+
+`ScanTags(q string, tag string) (nq string, tags []TagInfo, err error)`
+
+example:
 
 ```go
 q := `
