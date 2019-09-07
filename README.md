@@ -13,19 +13,37 @@ import "github.com/luthfikw/u2"
 
 ## usage
 
+### Binding
+
+apply u2 with binders
+
+`Binding(q string, binders map[string]string) string`
+
+example:
+
+```go
+q := "hi __@name__, how are you today. i am __:me__, nice to meet you"
+
+qnew := u2.Binding(q, map[string]string{
+    "@name": "John",
+    ":me": "George",
+})
+fmt.Printf("%s\n", qner)
+
+// output
+// hi John, how are you today. i am George, nice to meet you
+```
+
 ### ScanPrefix
+
 get all u2 binding with a prefix
 
 `ScanPrefix(q string, prefixs []string) (items map[string][]string)`
 
-
 example: [on playground](https://play.golang.org/p/Kg4v2_NVMVz)
 
 ```go
-q := `
-    hi __@name__, how are you today
-    i am __:me__, nice to meet you
-`
+q := "hi __@name__, how are you today. i am __:me__, nice to meet you"
 
 items := u2.ScanPrefix(q, []string{"@", ":"})
 fmt.Printf("%+v\n", items)
@@ -43,7 +61,7 @@ get all u2tag binding
 example: [on playground](https://play.golang.org/p/TDRuF1SYK0h)
 
 ```go
-q := `hi <foo:bar[index]{ meta1: value; meta2: "value 2"; }>hello world!</foo:bar>`
+q := "hi <foo:bar[index]{ meta1: value; meta2: "value 2"; }>hello world!</foo:bar>"
 
 newq, items, err := u2.ScanTags(q, "foo")
 if err != nil {
