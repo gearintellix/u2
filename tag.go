@@ -3,6 +3,8 @@ package u2
 import (
 	"fmt"
 	"strings"
+
+	"github.com/gearintellix/serr"
 )
 
 // TagInfo object
@@ -15,7 +17,7 @@ type TagInfo struct {
 }
 
 // ScanTags to get all u2tag binding
-func ScanTags(q string, tag string) (nq string, tags []TagInfo, err error) {
+func ScanTags(q string, tag string) (nq string, tags []TagInfo, errx serr.SErr) {
 	tags = []TagInfo{}
 
 	nq = ""
@@ -58,8 +60,8 @@ func ScanTags(q string, tag string) (nq string, tags []TagInfo, err error) {
 						continue
 					}
 
-					err = fmt.Errorf("no ending tag %s:%s on syntax '['", ctag.Tag, ctag.Key)
-					return nq, tags, err
+					errx = serr.Newc(fmt.Sprintf("No ending tag %s:%s on syntax '['", ctag.Tag, ctag.Key), "while parsing script")
+					return nq, tags, errx
 
 				case "{\"":
 					if string(qr[ii]) == "\"" {
@@ -79,8 +81,8 @@ func ScanTags(q string, tag string) (nq string, tags []TagInfo, err error) {
 						continue
 					}
 
-					err = fmt.Errorf("no ending meta tag %s:%s on syntax '\"'", ctag.Tag, ctag.Key)
-					return nq, tags, err
+					errx = serr.Newc(fmt.Sprintf("No ending meta tag %s:%s on syntax '\"'", ctag.Tag, ctag.Key), "while parsing script")
+					return nq, tags, errx
 
 				case "{":
 					if meta == "" {
@@ -112,8 +114,8 @@ func ScanTags(q string, tag string) (nq string, tags []TagInfo, err error) {
 						continue
 					}
 
-					err = fmt.Errorf("unknown syntax %s on %s:%s", string(qr[ii]), ctag.Tag, ctag.Key)
-					return nq, tags, err
+					errx = serr.Newc(fmt.Sprintf("Unknown syntax %s on %s:%s", string(qr[ii]), ctag.Tag, ctag.Key), "while parsing script")
+					return nq, tags, errx
 
 				case ">":
 					if ctag.Key == "" {
@@ -129,8 +131,8 @@ func ScanTags(q string, tag string) (nq string, tags []TagInfo, err error) {
 						continue
 					}
 
-					err = fmt.Errorf("no ending of tag %s:%s", ctag.Tag, ctag.Key)
-					return nq, tags, err
+					errx = serr.Newc(fmt.Sprintf("No ending of tag %s:%s", ctag.Tag, ctag.Key), "while parsing script")
+					return nq, tags, errx
 
 				default:
 					if len(qr) <= ii {
@@ -274,5 +276,5 @@ func ScanTags(q string, tag string) (nq string, tags []TagInfo, err error) {
 		break
 	}
 
-	return nq, tags, err
+	return nq, tags, errx
 }
