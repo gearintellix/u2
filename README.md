@@ -4,11 +4,11 @@ double underscore binding
 ## install
 
 ```bash
-$ go get -u github.com/luthfikw/u2
+$ go get -u github.com/gearintellix/u2
 ```
 
 ```go
-import "github.com/luthfikw/u2"
+import "github.com/gearintellix/u2"
 ```
 
 ## usage
@@ -61,7 +61,7 @@ get all u2tag binding
 example: [on playground](https://play.golang.org/p/TDRuF1SYK0h)
 
 ```go
-q := "hi <foo:bar[index]{ meta1: value; meta2: "value 2"; }>hello world!</foo:bar>"
+q := `hi <foo:bar[index]{ meta1: value; meta2: "value 2"; }>hello world!</foo:bar>`
 
 newq, items, err := u2.ScanTags(q, "foo")
 if err != nil {
@@ -78,4 +78,4 @@ fmt.Printf("%s\n\n%+v\n", newq, items)
 
 ## contributing
 
-we are open become contributor!
+we are open, if you become contributor!
