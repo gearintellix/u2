@@ -17,7 +17,7 @@ func ScanPrefix(q string, prefixs []string) (items map[string][]string) {
 	binds := fx.FindAll([]byte(q), -1)
 
 	for _, v := range binds {
-		vx := subStr(string(v), 2, -2)
+		vx := subStr(string(v), 2, -4)
 
 		for _, v2 := range prefixs {
 			if strings.HasPrefix(vx, v2) {
