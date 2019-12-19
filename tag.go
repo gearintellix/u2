@@ -29,7 +29,7 @@ func ScanTags(q string, tag string) (nq string, tags []TagInfo, errx serr.SErr) 
 		qkey := fmt.Sprintf("<%s:", tag)
 		i = index(q, qkey, i)
 		if i >= 0 {
-			nq += subStr(q, io, i-io)
+			nq += subStr(q, io, i)
 
 			ctag := TagInfo{
 				Tag:  tag,
@@ -51,11 +51,11 @@ func ScanTags(q string, tag string) (nq string, tags []TagInfo, errx serr.SErr) 
 
 				switch cstx {
 				case "[":
-					ctag.Key = trim(subStr(q, ic, ii-ic-1))
+					ctag.Key = trim(subStr(q, ic, ii-1))
 
 					iii := index(q, "]", ii)
 					if iii > ii {
-						ctag.Index = trim(subStr(q, ii, iii-ii))
+						ctag.Index = trim(subStr(q, ii, iii))
 						cstx = ""
 						continue
 					}
@@ -88,7 +88,7 @@ func ScanTags(q string, tag string) (nq string, tags []TagInfo, errx serr.SErr) 
 					if meta == "" {
 						fns = []string{"/", ">"}
 						if ctag.Key == "" {
-							ctag.Key = trim(subStr(q, ic, ii-ic-1))
+							ctag.Key = trim(subStr(q, ic, ii-1))
 						}
 						meta = ">"
 						ic = ii
@@ -99,14 +99,14 @@ func ScanTags(q string, tag string) (nq string, tags []TagInfo, errx serr.SErr) 
 						cstx = "{\""
 
 					case "}":
-						meta = subStr(q, ic, ii-ic-1)
+						meta = subStr(q, ic, ii-1)
 						cstx = ""
 					}
 
 				case "/":
 					if string(qr[ii]) == ">" {
 						if ctag.Key == "" {
-							ctag.Key = trim(subStr(q, ic, ii-ic-1))
+							ctag.Key = trim(subStr(q, ic, ii-1))
 						}
 
 						ii++
@@ -119,13 +119,13 @@ func ScanTags(q string, tag string) (nq string, tags []TagInfo, errx serr.SErr) 
 
 				case ">":
 					if ctag.Key == "" {
-						ctag.Key = trim(subStr(q, ic, ii-ic-1))
+						ctag.Key = trim(subStr(q, ic, ii-1))
 					}
 
 					qkey := fmt.Sprintf("</%s:%s>", ctag.Tag, ctag.Key)
 					iii := index(q, qkey, ii)
 					if iii > ii {
-						ctag.Value = subStr(q, ii, iii-ii)
+						ctag.Value = subStr(q, ii, iii)
 						ii = iii + len(qkey)
 						cstx = "!"
 						continue
@@ -165,7 +165,7 @@ func ScanTags(q string, tag string) (nq string, tags []TagInfo, errx serr.SErr) 
 						if !done && !quote {
 							iiy := index(v, ":", iii)
 							if iiy > iii {
-								temp[0] = trim(subStr(v, iii, iiy-iii))
+								temp[0] = trim(subStr(v, iii, iiy))
 								iii = iiy + 1
 
 								iiii := iii
@@ -180,7 +180,7 @@ func ScanTags(q string, tag string) (nq string, tags []TagInfo, errx serr.SErr) 
 										quote = true
 
 									case ";":
-										temp[1] = trim(subStr(v, iii, iiii-iii))
+										temp[1] = trim(subStr(v, iii, iiii))
 										iii = iiii + 1
 										done = true
 
@@ -190,7 +190,7 @@ func ScanTags(q string, tag string) (nq string, tags []TagInfo, errx serr.SErr) 
 								}
 
 								if !quote && !done {
-									temp[1] = trim(subStr(v, iii, iiii-iii))
+									temp[1] = trim(subStr(v, iii, iiii))
 									iii = iiii + 1
 									done = true
 								}
@@ -215,7 +215,7 @@ func ScanTags(q string, tag string) (nq string, tags []TagInfo, errx serr.SErr) 
 										continue
 									}
 
-									temp[1] += subStr(v, iix, iiii-iix)
+									temp[1] += subStr(v, iix, iiii)
 									quote, done = false, true
 									iii = iiii + 1
 
@@ -272,7 +272,7 @@ func ScanTags(q string, tag string) (nq string, tags []TagInfo, errx serr.SErr) 
 
 			continue
 		}
-		nq += subStr(q, io, i-io+1)
+		nq += subStr(q, io, i+1)
 		break
 	}
 
