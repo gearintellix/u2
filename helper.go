@@ -27,7 +27,7 @@ func subStr(s string, f int, l int) string {
 	if l == 0 {
 		l = len(s) - f
 	} else if l < 0 {
-		l = len(s) + l
+		l = len(s) + l - f
 	}
 
 	return s[f : f+l]

@@ -1,5 +1,10 @@
 package u2
 
+import (
+	"regexp"
+	"strings"
+)
+
 // ScanPrefix to get all u2 binding with a prefix
 func ScanPrefix(q string, prefixs []string) (items map[string][]string) {
 	items = make(map[string][]string)
@@ -8,33 +13,16 @@ func ScanPrefix(q string, prefixs []string) (items map[string][]string) {
 		items[v] = []string{}
 	}
 
-	qr := []rune(q)
-	for _, v := range prefixs {
-		i := 0
-		for {
-			i = index(q, "__"+v, i)
-			if i >= 0 {
-				if i > 0 && string(qr[i-1]) == "\\" {
-					continue
-				}
+	fx := regexp.MustCompile(`__([^\s]*?)__`)
+	binds := fx.FindAll([]byte(q), -1)
 
-				i += 2 + len(v)
-				for {
-					ii := index(q, "__", i)
-					if ii > i {
-						if ii > 0 && string(qr[ii-1]) == "\\" {
-							i = ii + 2
-							continue
-						}
+	for _, v := range binds {
+		vx := subStr(string(v), 2, -2)
 
-						items[v] = append(items[v], subStr(q, i, ii-i))
-						i = ii + 2
-					}
-					break
-				}
-				continue
+		for _, v2 := range prefixs {
+			if strings.HasPrefix(vx, v2) {
+				items[v2] = append(items[v2], subStr(vx, len(v2), 0))
 			}
-			break
 		}
 	}
 
