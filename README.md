@@ -1,6 +1,8 @@
 # u2
 double underscore binding
 
+[![GoDoc](https://godoc.org/gopkg.in/gearintellix/u2.v1?status.svg)](https://godoc.org/gopkg.in/gearintellix/u2.v1)
+
 ## install
 
 ```bash
