@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/gearintellix/serr"
+	"gopkg.in/gearintellix/serr.v1"
 )
 
 // TagInfo object
@@ -60,7 +60,7 @@ func ScanTags(q string, tag string) (nq string, tags []TagInfo, errx serr.SErr) 
 						continue
 					}
 
-					errx = serr.Newc(fmt.Sprintf("No ending tag %s:%s on syntax '['", ctag.Tag, ctag.Key), "while parsing script")
+					errx = serr.Newc(fmt.Sprintf("no ending tag %s:%s on syntax '['", ctag.Tag, ctag.Key), "while parsing script")
 					return nq, tags, errx
 
 				case "{\"":
@@ -81,7 +81,7 @@ func ScanTags(q string, tag string) (nq string, tags []TagInfo, errx serr.SErr) 
 						continue
 					}
 
-					errx = serr.Newc(fmt.Sprintf("No ending meta tag %s:%s on syntax '\"'", ctag.Tag, ctag.Key), "while parsing script")
+					errx = serr.Newc(fmt.Sprintf("no ending meta tag %s:%s on syntax '\"'", ctag.Tag, ctag.Key), "while parsing script")
 					return nq, tags, errx
 
 				case "{":
@@ -114,7 +114,7 @@ func ScanTags(q string, tag string) (nq string, tags []TagInfo, errx serr.SErr) 
 						continue
 					}
 
-					errx = serr.Newc(fmt.Sprintf("Unknown syntax %s on %s:%s", string(qr[ii]), ctag.Tag, ctag.Key), "while parsing script")
+					errx = serr.Newc(fmt.Sprintf("unknown syntax %s on %s:%s", string(qr[ii]), ctag.Tag, ctag.Key), "while parsing script")
 					return nq, tags, errx
 
 				case ">":
@@ -131,7 +131,7 @@ func ScanTags(q string, tag string) (nq string, tags []TagInfo, errx serr.SErr) 
 						continue
 					}
 
-					errx = serr.Newc(fmt.Sprintf("No ending of tag %s:%s", ctag.Tag, ctag.Key), "while parsing script")
+					errx = serr.Newc(fmt.Sprintf("no ending of tag %s:%s", ctag.Tag, ctag.Key), "while parsing script")
 					return nq, tags, errx
 
 				default:
