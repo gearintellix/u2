@@ -2,7 +2,7 @@ module github.com/gearintellix/u2
 
 go 1.12
 
-replace gopkg.in/gearintellix/serr.v1 => github.com/gearintellix/serr v1.1.0
+replace gopkg.in/gearintellix/serr.v1 => github.com/gearintellix/serr v1.1.2
 
 require (
 	github.com/go-errors/errors v1.0.1 // indirect
