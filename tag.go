@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"gopkg.in/gearintellix/serr.v1"
+	"github.com/gearintellix/serr"
 )
 
 // TagInfo object
