@@ -9,11 +9,12 @@ import (
 
 // TagInfo object
 type TagInfo struct {
-	Tag   string
-	Key   string
-	Index string
-	Value string
-	Meta  map[string]string
+	Tag      string
+	Key      string
+	Index    string
+	Value    string
+	MetaKeys []string
+	Meta     map[string]string
 }
 
 // ScanTags to get all u2tag binding
@@ -254,6 +255,7 @@ func ScanTags(q string, tag string) (nq string, tags []TagInfo, errx serr.SErr) 
 								}
 
 							default:
+								ctag.MetaKeys = append(ctag.MetaKeys, temp[0])
 								ctag.Meta[temp[0]] = temp[1]
 							}
 
