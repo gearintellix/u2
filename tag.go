@@ -242,6 +242,9 @@ func ScanTags(q string, tag string) (nq string, tags []TagInfo, errx serr.SErr) 
 								isMeta = true
 							}
 
+							// replacing double quote
+							temp[1] = strings.ReplaceAll(temp[1], "\"\"", "\"")
+
 							switch true {
 							case !isMeta && temp[0] == "key":
 								ctag.Key = temp[1]
